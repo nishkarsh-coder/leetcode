@@ -32,6 +32,10 @@
 
 <p>&nbsp;</p>
 <p><strong>Constraints:</strong></p>
+	
+	
+	
+keep in mind we need to check i!=j means if array have the 0 element then we double of 0 is also zero. so, in this case i=j.so, we will not take that case...  
 
 <ul>
 	<li><code>2 &lt;= arr.length &lt;= 500</code></li>
