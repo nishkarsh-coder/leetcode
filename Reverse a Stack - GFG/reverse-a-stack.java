@@ -30,8 +30,12 @@ class GFG
     		}
     		//calling rotateArr() function
             ArrayList<Integer> res=Solution.reverse(stack);
-            for(int ii : res)
-            System.out.print(ii+" ");
+            for(int ii=0;ii<res.size();ii++){
+                System.out.print(res.get(ii));
+                if(ii!=res.size()-1){
+                    System.out.print(" ");
+                }
+            }
             System.out.println();
          }
     }
@@ -41,18 +45,38 @@ class GFG
 //User function Template for Java
 
 class Solution
-{ 
-    static ArrayList<Integer> reverse(Stack<Integer> s)
+{   
+
+static void insert_at_bottom(int x,Stack<Integer> s){
+    if(s.size()==0){
+        s.push(x);
+    }
+    else{
+        int a=s.pop();
+        insert_at_bottom(x,s);
+        s.push(a);
+    }
+}
+
+static void reverse1(Stack<Integer> s)
     {
         // add your code here
-        ArrayList<Integer> ans=new ArrayList<>();
-        
-        
-        while(s.size()!=0){
+        if(s.size()==0){
+            // ArrayList<Integer> ans= new ArrayList<Integer>();
+            return;
+        }
+        int x=s.pop();
+        reverse1(s);
+        insert_at_bottom(x,s);
+    }
+    static ArrayList<Integer> reverse(Stack<Integer> s){
+         reverse1(s);
+         ArrayList<Integer> ans = new ArrayList<>();
+         while(!s.isEmpty()){
             ans.add(s.peek());
             s.pop();
         }
-        
-     return ans;   
+        Collections.reverse(ans);
+        return ans;
     }
 }
