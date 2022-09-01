@@ -22,11 +22,21 @@ class Solution {
     }
     public void recoverTree(TreeNode root) {
         TreeNode curr=root;
-        ArrayList<TreeNode> arr=new ArrayList<>(); 
+        TreeNode a=null;
+        TreeNode b=null;    
+        TreeNode prev=null;
+        // ArrayList<TreeNode> arr=new ArrayList<>(); 
         while(curr!=null){
             TreeNode left=curr.left;
             if(left==null){
-                arr.add(curr);
+                // arr.add(curr);
+                if(prev!=null&&prev.val>curr.val){
+                    if(a==null){
+                        a=prev;
+                    }
+                    b=curr;
+                }
+                prev=curr;
                 curr=curr.right;   
             }else{
                TreeNode rightmost=getright(left,curr); 
@@ -35,28 +45,34 @@ class Solution {
                     curr=curr.left;
                 }else{
                     rightmost.right=null;
-                    arr.add(curr);
+                    // arr.add(curr);
+                    if(prev.val>curr.val){
+                        if(a==null){
+                            a=prev;
+                        }
+                        b=curr;
+                    }
+                    prev=curr;
                     curr=curr.right;
                 } 
             }
         }
-        TreeNode p1=null;
-        TreeNode p2=null;
-        for(int i=1;i<arr.size();i++){
-            if(arr.get(i-1).val>arr.get(i).val){
-                if(p1==null){
-                    p1=arr.get(i-1);
-                    p2=arr.get(i);
-                }else{
-                    p2=arr.get(i);
-                    break;
-                }
-            }
-        }
+
+        // for(int i=1;i<arr.size();i++){
+        //     if(arr.get(i-1).val>arr.get(i).val){
+        //         if(p1==null){
+        //             p1=arr.get(i-1);
+        //             p2=arr.get(i);
+        //         }else{
+        //             p2=arr.get(i);
+        //             break;
+        //         }
+        //     }
+        // }
         
-        int temp=p1.val;
-        p1.val=p2.val;
-        p2.val=temp;
+        int temp=a.val;
+        a.val=b.val;
+    b.val=temp;
         // return 
     }
 }
