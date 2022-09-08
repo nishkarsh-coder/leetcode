@@ -22,7 +22,25 @@ class Solution {
             graph[nbr].add(new edge(nbr,src));   
                 
         }
-       return helper(graph,source,destination,visited);
+       return bfs(graph,source,destination,visited);
+    }
+    
+   boolean bfs(ArrayList<edge>[] graph,int s,int d,boolean[] visited){
+        Queue<Integer> q=new ArrayDeque<>();
+        q.add(s);
+        while(q.size()>0){
+            int top=q.remove();
+            if(top==d){
+               return true; 
+            }
+            visited[top]=true;
+            for(edge e: graph[top]){
+                if(visited[e.nbr]==false){
+                    q.add(e.nbr);
+                }
+            }
+        }
+        return false;
     }
     
     boolean helper(ArrayList<edge>[] graph,int s,int d,boolean visited[]){
