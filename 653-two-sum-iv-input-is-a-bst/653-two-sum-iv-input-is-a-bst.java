@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    HashSet<Integer> hm;
+    public boolean findTarget(TreeNode root, int k) {
+        hm=new HashSet<Integer>();
+        return helper(root,k);
+    }
+       boolean helper(TreeNode root,int k){
+            if(root==null){
+                return false;
+            }
+            
+            if(hm.contains(k-root.val)){
+                return true;
+            }
+            hm.add(root.val);
+            if(helper(root.left,k)){
+                return true;
+            }
+            
+            
+            if(helper(root.right,k)){
+                return true;
+            }
+            
+            return false;
+            
+        }
+
+}
