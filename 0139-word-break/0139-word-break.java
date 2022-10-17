@@ -40,7 +40,7 @@ class Solution {
         }
         if(h.contains(s.substring(start,ind+1))){            
         if(helper(s,ind+1,ind+1,h,dp)){
-            dp[start][ind]=0;
+            dp[start][ind]=1;
             return true;
         }
         }
