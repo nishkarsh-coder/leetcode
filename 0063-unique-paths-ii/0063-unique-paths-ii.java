@@ -15,24 +15,20 @@ class Solution {
            if(i==n-1&&j==m-1){
                
            }else if(i!=n-1&&j!=m-1){
-               if(obstacleGrid[i][j]==1||(dp[i+1][j]==-1&&dp[i][j+1]==-1)){
-                   dp[i][j]=-1;
-               }else if(dp[i+1][j]==-1){
-                   dp[i][j]=dp[i][j+1];
-               }else if(dp[i][j+1]==-1){
-                    dp[i][j]=dp[i+1][j];
+               if(obstacleGrid[i][j]==1){
+                   dp[i][j]=0;
                }else{
                    dp[i][j]=dp[i+1][j]+dp[i][j+1];
                }
            }else if(i==n-1){
                if(obstacleGrid[i][j]==1||dp[i][j+1]==-1){
-                   dp[i][j]=-1;
+                   dp[i][j]=0;
                }else{
                     dp[i][j]=dp[i][j+1];
                }
            }else if(j==m-1){
                if(obstacleGrid[i][j]==1||dp[i+1][j]==-1){
-                   dp[i][j]=-1;
+                   dp[i][j]=0;
                }else{
                     dp[i][j]=dp[i+1][j];
                }
