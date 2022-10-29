@@ -36,39 +36,60 @@ class GFG
 class Solution{
 
 
-    static Boolean isSubsetSum(int N, int arr[], int sum){
+    static Boolean isSubsetSum(int n, int arr[], int k){
         // code here
-        int[][] dp=new int[N][sum]; 
-        for(int i[]: dp){
-            Arrays.fill(i,-1);
+        boolean[][] dp=new boolean[n+1][k+1];
+        // for(bool[]row: dp){
+        //     Arrays.fill(row,-1);
+        // }
+        // return helper(arr,k,0,dp);
+        boolean prev[]=new boolean[k+1];
+        prev[0]=true;
+        // for(int i=0;i<n+1;i++){
+        //     prev[]=true;
+        // }
+        
+        for(int i=n-1;i>=0;i--){
+            boolean curr[]=new boolean[k+1];
+            for(int j=0;j<=k;j++){
+                // dp[i][j]=dp[i+1][j];
+                // if(j-arr[i]>=0){
+                // dp[i][j]=dp[i][j]||dp[i+1][j-arr[i]];
+                // }
+                
+                curr[j]=prev[j];
+                if(j-arr[i]>=0)
+                curr[j]=prev[j-arr[i]]||curr[j];
+                
+            }
+            prev=curr;
         }
-        return helper(0, arr, sum,0,dp);
+        
+        
+        return prev[k];
     }
     
-    static boolean helper(int i,int[] arr,int sum,int curr_sum,int[][] dp){
-    if(sum==curr_sum){
-    return true;    
-    }
-    if(sum<curr_sum){
+    static boolean helper(int[] arr, int k,int ind,int[][] dp){
+        if(k==0){
+            return true;
+        }
+        if(k<0){
+            return false;
+        }
+        
+        if(ind==arr.length){
+            return false;
+        }
+        if(dp[ind][k]!=-1){
+            return dp[ind][k]==1;
+        }
+        boolean right=helper(arr,k-arr[ind],ind+1,dp);
+        boolean left=helper(arr,k,ind+1,dp);
+       if(right||left){
+        dp[ind][k]=1;
+           return true;
+       }
+        dp[ind][k]=0;
         return false;
-    }
-    if(i==arr.length){
-        return false;
-    }
-    
-    if(dp[i][curr_sum]!=-1){
-        return false;
-    }
-    
-    if(helper(i+1,arr,sum,curr_sum+arr[i],dp)){
-        dp[i][curr_sum]=1;
-        return true;
-    }
-    if(helper(i+1,arr,sum,curr_sum,dp)){
-        dp[i][curr_sum]=1;
-        return true;
-    }
-    dp[i][curr_sum]=0;
-    return false;
     }
 }
