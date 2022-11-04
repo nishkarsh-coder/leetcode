@@ -26,11 +26,17 @@ class Solution{
         //code here
         int[] dp=new int[n+1];
         Arrays.fill(dp,-1);
-       int ans=helper(n,price,n,dp);
+    //   int ans=helper(n,price,n,dp);
        dp[0]=0;
        dp[1]=price[0];
     //   System.out.println(Arrays.toString(dp));
-       return ans;
+    for(int i=2;i<=n;i++){
+        dp[i]=price[i-1];
+        for(int j=1;j<=i/2;j++){
+            dp[i]=Math.max(dp[i],dp[i-j]+dp[j]);
+        }
+    }
+       return dp[n];
     }
     
     int helper(int i,int[] price,int n,int[] dp){
