@@ -42,10 +42,25 @@ class Solution{
                 dp[i][j]=-1;
             }
         }
+        int n=N;
+        int[] prev=new int[W+1];
+        // /prev[0]=0;
+        for(int i=n-1;i>=0;i--){
+            int[] curr=new int[W+1];
+            for(int j=0;j<=W;j++)
+            {
+                curr[j]=prev[j];
+                if(j-wt[i]>=0){
+                    curr[j]=Math.max(prev[j],val[i]+curr[j-wt[i]]);
+                }
+            }
+            prev=curr;
+        }
         
-        return helper(0,W,val,wt,dp);
         
+        // return helper(0,W,val,wt,dp);
         
+        return prev[W];
     }
     
     static int helper(int ind,int maxweight,int[] val,int[]wt,int[][] dp){
