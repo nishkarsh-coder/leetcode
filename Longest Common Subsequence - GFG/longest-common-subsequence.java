@@ -34,7 +34,28 @@ class Solution
         for(int[] row:dp){
             Arrays.fill(row,-1);
         }
-        return helper(x-1,y-1,s1,s2,dp);
+        // return helper(x-1,y-1,s1,s2,dp);
+        // int[][] dp
+        // int[][] dp=new int[][]
+        int[] prev=new int[y];
+        for(int i=0;i<x;i++){
+            int[] curr=new int[y];
+            for(int j=0;j<y;j++){
+                if(s1.charAt(i)==s2.charAt(j)){
+                    if(j-1>=0)curr[j]=1+prev[j-1];
+                    else curr[j]=1;
+                }else if(j-1>=0){
+                    curr[j]=Math.max(prev[j],curr[j-1]);
+                }else{
+                    curr[j]=prev[j];
+                }
+            }
+            prev=curr;
+        }
+        
+
+        return prev[y-1];
+        
     }
     
     static int helper(int i1,int i2,String s1,String s2,int[][] dp){
